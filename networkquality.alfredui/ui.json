@@ -1,0 +1,943 @@
+{
+  "bundleid": "dev.omeravital.networkQuality",
+  "log": {
+    "level": "info",
+    "internal": true
+  },
+  "variablesconfig": {
+    "autostart": {
+      "src": "variable",
+      "scriptenv": true,
+      "default": "0"
+    },
+    "test_mode": {
+      "src": "variable",
+      "scriptenv": true,
+      "default": "parallel"
+    },
+    "thr_download": {
+      "src": "variable",
+      "scriptenv": true,
+      "default": "25,100"
+    },
+    "thr_upload": {
+      "src": "variable",
+      "scriptenv": true,
+      "default": "3,20"
+    },
+    "thr_rpm": {
+      "src": "variable",
+      "scriptenv": true,
+      "default": "200,1000"
+    },
+    "thr_latency": {
+      "src": "variable",
+      "scriptenv": true,
+      "default": "30,100"
+    }
+  },
+  "variables": {
+    "net_filter": "*"
+  },
+  "pulse": {
+    "src": "scripts/nq.py",
+    "args": [
+      "pulse",
+      "{var:net_filter}"
+    ],
+    "interval": 0
+  },
+  "window": {
+    "title": "Network Quality",
+    "root": {
+      "type": "view",
+      "layout": "inline",
+      "direction": "vertical",
+      "padding": 18,
+      "spacing": 12,
+      "events": [
+        {
+          "triggers": "preload",
+          "action": {
+            "type": "script",
+            "src": "scripts/nq.py",
+            "args": "load"
+          }
+        }
+      ],
+      "shortcuts": [
+        {
+          "shortcut": "⌘.",
+          "action": {
+            "type": "script",
+            "src": "scripts/nq.py",
+            "args": [
+              "stop",
+              "{var:net_filter}"
+            ]
+          }
+        },
+        {
+          "shortcut": "⌘R",
+          "action": {
+            "type": "script",
+            "src": "scripts/nq.py",
+            "args": [
+              "start",
+              "{var:net_filter}"
+            ]
+          }
+        }
+      ],
+      "components": [
+        {
+          "type": "view",
+          "layout": "border",
+          "spacing": 12,
+          "constraints": {
+            "insets": {
+              "bottom": 4
+            }
+          },
+          "components": [
+            {
+              "type": "view",
+              "layout": "inline",
+              "direction": "vertical",
+              "spacing": 2,
+              "constraints": {
+                "region": "left",
+                "position": "left"
+              },
+              "components": [
+                {
+                  "type": "label",
+                  "text": " ",
+                  "id": "title_net",
+                  "font": {
+                    "size": 20,
+                    "weight": "semibold"
+                  }
+                },
+                {
+                  "type": "label",
+                  "text": " ",
+                  "id": "title_sub",
+                  "colour": "secondaryLabelColor",
+                  "font": {
+                    "size": "small"
+                  }
+                }
+              ]
+            },
+            {
+              "constraints": {
+                "region": "centre"
+              }
+            },
+            {
+              "type": "view",
+              "layout": "inline",
+              "direction": "vertical",
+              "spacing": 2,
+              "constraints": {
+                "region": "right",
+                "position": "right"
+              },
+              "tooltip": "Idle latency: round-trip time before the network is loaded",
+              "components": [
+                {
+                  "id": "lat_value",
+                  "type": "label",
+                  "text": "—",
+                  "textalign": "right",
+                  "constraints": {
+                    "insets": {
+                      "right": 4
+                    }
+                  },
+                  "font": {
+                    "size": 20,
+                    "weight": "semibold",
+                    "monospaced": "digits"
+                  }
+                },
+                {
+                  "type": "view",
+                  "layout": "border",
+                  "spacing": 5,
+                  "components": [
+                    {
+                      "type": "label",
+                      "text": "Latency",
+                      "colour": "secondaryLabelColor",
+                      "font": {
+                        "size": "small"
+                      },
+                      "textalign": "right",
+                      "constraints": {
+                        "region": "centre"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "text": " ",
+                      "id": "lat_grade",
+                      "font": {
+                        "size": "small",
+                        "weight": "semibold"
+                      },
+                      "constraints": {
+                        "region": "right"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "view",
+          "layout": "grid",
+          "rows": 1,
+          "cols": 3,
+          "spacing": 12,
+          "components": [
+            {
+              "type": "view",
+              "layout": "inline",
+              "direction": "vertical",
+              "spacing": 6,
+              "components": [
+                {
+                  "type": "view",
+                  "layout": "stack",
+                  "constraints": {
+                    "position": "centre",
+                    "size": {
+                      "width": 116,
+                      "height": 116
+                    }
+                  },
+                  "components": [
+                    {
+                      "id": "r_dl_ring",
+                      "type": "progress",
+                      "style": "round",
+                      "thickness": 11,
+                      "progress": 0,
+                      "colour": "secondaryLabelColor",
+                      "background": "#8080802E"
+                    },
+                    {
+                      "type": "view",
+                      "layout": "inline",
+                      "direction": "vertical",
+                      "spacing": 0,
+                      "constraints": {
+                        "position": "centre"
+                      },
+                      "components": [
+                        {
+                          "type": "label",
+                          "text": "—",
+                          "id": "r_dl_value",
+                          "textalign": "centre",
+                          "font": {
+                            "size": 30,
+                            "weight": "semibold",
+                            "monospaced": "digits"
+                          },
+                          "constraints": {
+                            "size": {
+                              "width": 100
+                            }
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "text": "Mbps",
+                          "textalign": "centre",
+                          "colour": "secondaryLabelColor",
+                          "font": {
+                            "size": "small"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "label",
+                  "text": "Download",
+                  "textalign": "centre",
+                  "colour": "secondaryLabelColor",
+                  "constraints": {
+                    "position": "centre"
+                  }
+                },
+                {
+                  "type": "view",
+                  "layout": "inline",
+                  "direction": "horizontal",
+                  "spacing": 6,
+                  "constraints": {
+                    "position": "centre"
+                  },
+                  "components": [
+                    {
+                      "type": "label",
+                      "text": " ",
+                      "id": "r_dl_grade",
+                      "font": {
+                        "weight": "semibold"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "view",
+              "layout": "inline",
+              "direction": "vertical",
+              "spacing": 6,
+              "components": [
+                {
+                  "type": "view",
+                  "layout": "stack",
+                  "constraints": {
+                    "position": "centre",
+                    "size": {
+                      "width": 116,
+                      "height": 116
+                    }
+                  },
+                  "components": [
+                    {
+                      "id": "r_ul_ring",
+                      "type": "progress",
+                      "style": "round",
+                      "thickness": 11,
+                      "progress": 0,
+                      "colour": "secondaryLabelColor",
+                      "background": "#8080802E"
+                    },
+                    {
+                      "type": "view",
+                      "layout": "inline",
+                      "direction": "vertical",
+                      "spacing": 0,
+                      "constraints": {
+                        "position": "centre"
+                      },
+                      "components": [
+                        {
+                          "type": "label",
+                          "text": "—",
+                          "id": "r_ul_value",
+                          "textalign": "centre",
+                          "font": {
+                            "size": 30,
+                            "weight": "semibold",
+                            "monospaced": "digits"
+                          },
+                          "constraints": {
+                            "size": {
+                              "width": 100
+                            }
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "text": "Mbps",
+                          "textalign": "centre",
+                          "colour": "secondaryLabelColor",
+                          "font": {
+                            "size": "small"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "label",
+                  "text": "Upload",
+                  "textalign": "centre",
+                  "colour": "secondaryLabelColor",
+                  "constraints": {
+                    "position": "centre"
+                  }
+                },
+                {
+                  "type": "view",
+                  "layout": "inline",
+                  "direction": "horizontal",
+                  "spacing": 6,
+                  "constraints": {
+                    "position": "centre"
+                  },
+                  "components": [
+                    {
+                      "type": "label",
+                      "text": " ",
+                      "id": "r_ul_grade",
+                      "font": {
+                        "weight": "semibold"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "view",
+              "layout": "inline",
+              "direction": "vertical",
+              "spacing": 6,
+              "components": [
+                {
+                  "type": "view",
+                  "layout": "stack",
+                  "constraints": {
+                    "position": "centre",
+                    "size": {
+                      "width": 116,
+                      "height": 116
+                    }
+                  },
+                  "components": [
+                    {
+                      "id": "r_rpm_ring",
+                      "type": "progress",
+                      "style": "round",
+                      "thickness": 11,
+                      "progress": 0,
+                      "colour": "secondaryLabelColor",
+                      "background": "#8080802E"
+                    },
+                    {
+                      "type": "view",
+                      "layout": "inline",
+                      "direction": "vertical",
+                      "spacing": 0,
+                      "constraints": {
+                        "position": "centre"
+                      },
+                      "components": [
+                        {
+                          "type": "label",
+                          "text": "—",
+                          "id": "r_rpm_value",
+                          "textalign": "centre",
+                          "font": {
+                            "size": 30,
+                            "weight": "semibold",
+                            "monospaced": "digits"
+                          },
+                          "constraints": {
+                            "size": {
+                              "width": 100
+                            }
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "text": "RPM",
+                          "textalign": "centre",
+                          "colour": "secondaryLabelColor",
+                          "font": {
+                            "size": "small"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "label",
+                  "text": "Responsiveness",
+                  "textalign": "centre",
+                  "colour": "secondaryLabelColor",
+                  "constraints": {
+                    "position": "centre"
+                  }
+                },
+                {
+                  "type": "view",
+                  "layout": "inline",
+                  "direction": "horizontal",
+                  "spacing": 6,
+                  "constraints": {
+                    "position": "centre"
+                  },
+                  "components": [
+                    {
+                      "type": "label",
+                      "text": " ",
+                      "id": "r_rpm_grade",
+                      "font": {
+                        "weight": "semibold"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tags",
+          "type": "view",
+          "layout": "inline",
+          "direction": "horizontal",
+          "spacing": 8,
+          "constraints": {
+            "position": "centre"
+          },
+          "components": []
+        },
+        {
+          "type": "view",
+          "layout": "border",
+          "constraints": {
+            "insets": {
+              "top": 6
+            }
+          },
+          "components": [
+            {
+              "type": "view",
+              "layout": "inline",
+              "direction": "horizontal",
+              "spacing": 8,
+              "constraints": {
+                "region": "left",
+                "position": "left"
+              },
+              "components": [
+                {
+                  "type": "label",
+                  "text": "HISTORY",
+                  "colour": "secondaryLabelColor",
+                  "font": {
+                    "size": "small",
+                    "weight": "semibold"
+                  }
+                },
+                {
+                  "type": "label",
+                  "text": " ",
+                  "id": "status",
+                  "colour": "tertiaryLabelColor",
+                  "font": {
+                    "size": "small"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "net_picker",
+              "type": "picker",
+              "constraints": {
+                "region": "right"
+              },
+              "items": [
+                {
+                  "text": "All networks",
+                  "value": "*"
+                }
+              ],
+              "selected": "*",
+              "tooltip": "Filter history by network",
+              "events": [
+                {
+                  "triggers": "changed",
+                  "action": {
+                    "type": "script",
+                    "src": "scripts/nq.py",
+                    "args": [
+                      "select",
+                      "{value:net_picker.selected.value}"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "view",
+          "layout": "border",
+          "padding": 4,
+          "components": [
+            {
+              "type": "view",
+              "layout": "inline",
+              "direction": "horizontal",
+              "spacing": 10,
+              "constraints": {
+                "region": "left"
+              },
+              "components": [
+                {
+                  "type": "label",
+                  "text": "When",
+                  "colour": "secondaryLabelColor",
+                  "font": {
+                    "size": "small",
+                    "weight": "semibold"
+                  },
+                  "constraints": {
+                    "size": {
+                      "width": 108
+                    }
+                  }
+                },
+                {
+                  "type": "label",
+                  "text": "Network",
+                  "colour": "secondaryLabelColor",
+                  "font": {
+                    "size": "small",
+                    "weight": "semibold"
+                  },
+                  "constraints": {
+                    "size": {
+                      "width": 118
+                    }
+                  }
+                },
+                {
+                  "type": "label",
+                  "text": "↓ Mbps",
+                  "colour": "secondaryLabelColor",
+                  "font": {
+                    "size": "small",
+                    "weight": "semibold"
+                  },
+                  "constraints": {
+                    "size": {
+                      "width": 62
+                    }
+                  }
+                },
+                {
+                  "type": "label",
+                  "text": "↑ Mbps",
+                  "colour": "secondaryLabelColor",
+                  "font": {
+                    "size": "small",
+                    "weight": "semibold"
+                  },
+                  "constraints": {
+                    "size": {
+                      "width": 62
+                    }
+                  }
+                },
+                {
+                  "type": "label",
+                  "text": "Responsiveness",
+                  "colour": "secondaryLabelColor",
+                  "font": {
+                    "size": "small",
+                    "weight": "semibold"
+                  },
+                  "constraints": {
+                    "size": {
+                      "width": 120
+                    }
+                  }
+                },
+                {
+                  "type": "label",
+                  "text": "Latency",
+                  "colour": "secondaryLabelColor",
+                  "font": {
+                    "size": "small",
+                    "weight": "semibold"
+                  },
+                  "constraints": {
+                    "size": {
+                      "width": 60
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "constraints": {
+                "region": "centre"
+              }
+            }
+          ]
+        },
+        {
+          "id": "history",
+          "type": "dataview",
+          "placeholder": "No tests on this network yet",
+          "constraints": {
+            "size": {
+              "height": 180
+            }
+          },
+          "cell": {
+            "height": 22,
+            "root": {
+              "type": "view",
+              "layout": "border",
+              "padding": 4,
+              "components": [
+                {
+                  "type": "view",
+                  "layout": "inline",
+                  "direction": "horizontal",
+                  "spacing": 10,
+                  "constraints": {
+                    "region": "left"
+                  },
+                  "components": [
+                    {
+                      "type": "label",
+                      "text": "",
+                      "id": "h_when",
+                      "font": {
+                        "size": "small",
+                        "monospaced": "digits"
+                      },
+                      "linebreak": "truncatetail",
+                      "constraints": {
+                        "size": {
+                          "width": 108
+                        }
+                      },
+                      "colour": "secondaryLabelColor"
+                    },
+                    {
+                      "type": "label",
+                      "text": "",
+                      "id": "h_net",
+                      "font": {
+                        "size": "small",
+                        "monospaced": "digits"
+                      },
+                      "linebreak": "truncatetail",
+                      "constraints": {
+                        "size": {
+                          "width": 118
+                        }
+                      },
+                      "colour": "secondaryLabelColor"
+                    },
+                    {
+                      "type": "label",
+                      "text": "",
+                      "id": "h_dl",
+                      "font": {
+                        "size": "small",
+                        "monospaced": "digits"
+                      },
+                      "linebreak": "truncatetail",
+                      "constraints": {
+                        "size": {
+                          "width": 62
+                        }
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "text": "",
+                      "id": "h_ul",
+                      "font": {
+                        "size": "small",
+                        "monospaced": "digits"
+                      },
+                      "linebreak": "truncatetail",
+                      "constraints": {
+                        "size": {
+                          "width": 62
+                        }
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "text": "",
+                      "id": "h_rpm",
+                      "font": {
+                        "size": "small",
+                        "monospaced": "digits"
+                      },
+                      "linebreak": "truncatetail",
+                      "constraints": {
+                        "size": {
+                          "width": 48
+                        }
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "text": "",
+                      "id": "h_grade",
+                      "font": {
+                        "size": "small",
+                        "monospaced": "digits"
+                      },
+                      "linebreak": "truncatetail",
+                      "constraints": {
+                        "size": {
+                          "width": 62
+                        }
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "text": "",
+                      "id": "h_idle",
+                      "font": {
+                        "size": "small",
+                        "monospaced": "digits"
+                      },
+                      "linebreak": "truncatetail",
+                      "constraints": {
+                        "size": {
+                          "width": 60
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "constraints": {
+                    "region": "centre"
+                  }
+                }
+              ]
+            }
+          },
+          "data": {
+            "type": "basic",
+            "src": []
+          }
+        },
+        {
+          "type": "view",
+          "layout": "border",
+          "spacing": 8,
+          "components": [
+            {
+              "type": "view",
+              "layout": "inline",
+              "direction": "horizontal",
+              "spacing": 8,
+              "constraints": {
+                "region": "left"
+              },
+              "components": [
+                {
+                  "id": "help_button",
+                  "type": "button",
+                  "text": "?",
+                  "tooltip": "How the test works (⌘/)",
+                  "shortcut": "⌘/",
+                  "accessibility": {
+                    "label": "How the test works"
+                  },
+                  "events": [
+                    {
+                      "triggers": "actioned",
+                      "action": {
+                        "type": "script",
+                        "src": "scripts/nq.py",
+                        "args": [
+                          "help",
+                          "{var:net_filter}"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "close_button",
+                  "type": "button",
+                  "text": "Close",
+                  "tooltip": "Close the window (⎋). A running test keeps going and notifies you.",
+                  "events": [
+                    {
+                      "triggers": "actioned",
+                      "action": {
+                        "type": "json",
+                        "src": {
+                          "finish": {}
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "constraints": {
+                "region": "centre"
+              }
+            },
+            {
+              "constraints": {
+                "region": "right"
+              },
+              "type": "view",
+              "layout": "inline",
+              "direction": "horizontal",
+              "spacing": 8,
+              "components": [
+                {
+                  "id": "copy_button",
+                  "type": "button",
+                  "text": "Copy",
+                  "shortcut": "⌘C",
+                  "tooltip": "Copy the latest result (⌘C)",
+                  "events": [
+                    {
+                      "triggers": "actioned",
+                      "action": {
+                        "type": "script",
+                        "src": "scripts/nq.py",
+                        "args": [
+                          "copy",
+                          "{var:net_filter}"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "run_button",
+                  "type": "button",
+                  "text": "Run Test",
+                  "shortcut": "↩",
+                  "tooltip": "Run or stop a test (↩)",
+                  "events": [
+                    {
+                      "triggers": "actioned",
+                      "action": {
+                        "type": "script",
+                        "src": "scripts/nq.py",
+                        "args": [
+                          "toggle",
+                          "{var:net_filter}"
+                        ]
+                      }
+                    }
+                  ],
+                  "focus": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

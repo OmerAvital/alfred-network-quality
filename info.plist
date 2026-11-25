@@ -6,11 +6,34 @@
 	<string>dev.omeravital.networkQuality</string>
 	<key>connections</key>
 	<dict>
-		<key>02CC7A08-7160-41D6-BED1-A7448C0456A0</key>
+		<key>AF10E3F7-6161-4417-B143-6C4FD80362F6</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>F498495A-C0C7-4322-9C6D-7DAEB6D5E99B</string>
+				<string>8E2D4A61-3B7C-4F09-A1D5-6C9E2B47F8A3</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>5B3C1E2A-7D4F-4C8B-9E61-2A0F3D9C7B10</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>C41F7B92-0E3A-4D6B-8F25-9A7E1D3C5B64</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>5B3C1E2A-7D4F-4C8B-9E61-2A0F3D9C7B10</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -19,11 +42,11 @@
 				<false/>
 			</dict>
 		</array>
-		<key>112208AA-38E9-4C5A-9ACA-93444C894AD7</key>
+		<key>D7A93C15-6E2B-4F8A-B04C-1E5F9A2D8C37</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>02CC7A08-7160-41D6-BED1-A7448C0456A0</string>
+				<string>0F6B2E84-9C1D-4A37-8E5B-7D2C4F1A6B93</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -32,34 +55,11 @@
 				<false/>
 			</dict>
 		</array>
-		<key>468B1AEB-FD3D-483B-BFF9-6F26617B6546</key>
+		<key>E5A1C9D3-2B47-4F8E-9A06-3C7D1E5B8F24</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>53D9EBE8-E381-4F8A-A6D4-1EA0C97CDCE1</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
-		<key>F498495A-C0C7-4322-9C6D-7DAEB6D5E99B</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>468B1AEB-FD3D-483B-BFF9-6F26617B6546</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>3B9A69BB-51D3-497A-A0BE-8502817DE106</string>
+				<string>5B3C1E2A-7D4F-4C8B-9E61-2A0F3D9C7B10</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -72,7 +72,7 @@
 	<key>createdby</key>
 	<string>Omer Avital</string>
 	<key>description</key>
-	<string></string>
+	<string>Run macOS networkQuality with live results and history</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -82,147 +82,8 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>networkQuality Summary</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>53D9EBE8-E381-4F8A-A6D4-1EA0C97CDCE1</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>networkQuality</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>11</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>02CC7A08-7160-41D6-BED1-A7448C0456A0</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>tasksettings</key>
-				<dict/>
-				<key>taskuid</key>
-				<string>com.alfredapp.automation.core/text-processing/text.lines.strip.leading.1</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.automation.task</string>
-			<key>uid</key>
-			<string>F498495A-C0C7-4322-9C6D-7DAEB6D5E99B</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>networkQuality</string>
-				<key>subtext</key>
-				<string>Get the network quality</string>
-				<key>text</key>
-				<string>Network Quality</string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>112208AA-38E9-4C5A-9ACA-93444C894AD7</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>68</integer>
-				<key>script</key>
-				<string>import sys
-
-previous_lines = sys.argv[1].split('\n')
-
-output = previous_lines[0].replace('Uplink capacity:', '↑')
-output += ' | '
-output += previous_lines[1].replace('Downlink capacity:', '↓')
-output += f'\n{previous_lines[2]}\n{previous_lines[3]}'.replace('milliseconds', 'ms')
-        
-print(output)</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>9</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>468B1AEB-FD3D-483B-BFF9-6F26617B6546</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>adduuid</key>
-				<false/>
-				<key>allowemptyfiles</key>
-				<true/>
-				<key>createintermediatefolders</key>
-				<true/>
-				<key>filename</key>
-				<string>previous</string>
-				<key>filetext</key>
-				<string>{query}</string>
-				<key>ignoredynamicplaceholders</key>
-				<false/>
-				<key>relativepathmode</key>
-				<integer>0</integer>
-				<key>type</key>
-				<integer>1</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.writefile</string>
-			<key>uid</key>
-			<string>3B9A69BB-51D3-497A-A0BE-8502817DE106</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>alfredfiltersresults</key>
-				<false/>
+				<true/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
 				<key>argumenttreatemptyqueryasnil</key>
@@ -230,11 +91,11 @@ print(output)</string>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
-				<integer>2</integer>
+				<integer>1</integer>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>networkQuality</string>
+				<string>{var:history_keyword}</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -246,40 +107,19 @@ print(output)</string>
 				<key>runningsubtext</key>
 				<string></string>
 				<key>script</key>
-				<string>import os
-import json
-import sys
-
-data_folder = os.environ['alfred_workflow_data']
-
-previous_file = os.path.join(data_folder, 'previous')
-
-if os.path.exists(previous_file):
-    with open(previous_file, 'r') as f:
-        previous_lines = f.read().split('\n')
-        print(previous_lines, file=sys.stderr)
-        title = previous_lines[0].replace('Uplink capacity:', '↑')
-        title += ' | '
-        title += previous_lines[1].replace('Downlink capacity:', '↓')
-        subtitle = previous_lines[2]
-        subtitle += ' / ' + previous_lines[3].replace('Idle ', '')
-        subtitle = subtitle.replace('milliseconds', 'ms')
-        
-        print(json.dumps({'items': [{'title': title, 'subtitle': subtitle}]}))
-else:
-    print(json.dumps({'items': [{'title':'No saved previous network quality test.'}]}))</string>
+				<string>/usr/bin/python3 ./networkquality.alfredui/scripts/nq.py history</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string></string>
+				<string>Recent speed tests · ↩ copy · ⌘↩ open window</string>
 				<key>title</key>
-				<string>Previous Network Quality Result</string>
+				<string>Network Quality History</string>
 				<key>type</key>
-				<integer>9</integer>
+				<integer>0</integer>
 				<key>withspace</key>
-				<false/>
+				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
@@ -288,69 +128,354 @@ else:
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>launchmode</key>
+				<integer>0</integer>
+				<key>path</key>
+				<string>networkquality.alfredui</string>
+				<key>stackview</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.userinterface.alfredui</string>
+			<key>uid</key>
+			<string>5B3C1E2A-7D4F-4C8B-9E61-2A0F3D9C7B10</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>8E2D4A61-3B7C-4F09-A1D5-6C9E2B47F8A3</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>availableviaurlhandler</key>
+				<false/>
+				<key>triggerid</key>
+				<string>open</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.external</string>
+			<key>uid</key>
+			<string>C41F7B92-0E3A-4D6B-8F25-9A7E1D3C5B64</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>availableviaurlhandler</key>
+				<false/>
+				<key>triggerid</key>
+				<string>notify</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.external</string>
+			<key>uid</key>
+			<string>D7A93C15-6E2B-4F8A-B04C-1E5F9A2D8C37</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Network Quality</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>0F6B2E84-9C1D-4A37-8E5B-7D2C4F1A6B93</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>{var:window_keyword}</string>
+				<key>subtext</key>
+				<string>Run a speed test with live results</string>
+				<key>text</key>
+				<string>Network Quality</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>E5A1C9D3-2B47-4F8E-9A06-3C7D1E5B8F24</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
-	<string></string>
+	<string>nq: opens the window. ↩ runs or stops a test, ⌘C copies the result, the dropdown filters history by network.
+nqh: recent results in Alfred (type a network name to filter). ↩ copies, ⌘↩ opens the window.
+Closing the window mid-test lets it finish; the result is saved and shown as a notification.
+Grades (Poor/Okay/Great) use the thresholds in Configure Workflow.</string>
 	<key>uidata</key>
 	<dict>
-		<key>02CC7A08-7160-41D6-BED1-A7448C0456A0</key>
+		<key>0F6B2E84-9C1D-4A37-8E5B-7D2C4F1A6B93</key>
 		<dict>
 			<key>xpos</key>
-			<real>190</real>
+			<integer>300</integer>
 			<key>ypos</key>
-			<real>125</real>
+			<integer>460</integer>
 		</dict>
-		<key>112208AA-38E9-4C5A-9ACA-93444C894AD7</key>
+		<key>5B3C1E2A-7D4F-4C8B-9E61-2A0F3D9C7B10</key>
 		<dict>
-			<key>note</key>
-			<string>Run new speed test</string>
 			<key>xpos</key>
-			<real>30</real>
+			<integer>300</integer>
 			<key>ypos</key>
-			<real>125</real>
+			<integer>40</integer>
 		</dict>
-		<key>3B9A69BB-51D3-497A-A0BE-8502817DE106</key>
-		<dict>
-			<key>note</key>
-			<string>Save result to a file</string>
-			<key>xpos</key>
-			<real>520</real>
-			<key>ypos</key>
-			<real>240</real>
-		</dict>
-		<key>468B1AEB-FD3D-483B-BFF9-6F26617B6546</key>
+		<key>8E2D4A61-3B7C-4F09-A1D5-6C9E2B47F8A3</key>
 		<dict>
 			<key>xpos</key>
-			<real>520</real>
+			<integer>300</integer>
 			<key>ypos</key>
-			<real>125</real>
-		</dict>
-		<key>53D9EBE8-E381-4F8A-A6D4-1EA0C97CDCE1</key>
-		<dict>
-			<key>xpos</key>
-			<real>685</real>
-			<key>ypos</key>
-			<real>125</real>
+			<integer>180</integer>
 		</dict>
 		<key>AF10E3F7-6161-4417-B143-6C4FD80362F6</key>
 		<dict>
-			<key>note</key>
-			<string>Load previous speed test</string>
 			<key>xpos</key>
-			<real>30</real>
+			<integer>40</integer>
 			<key>ypos</key>
-			<real>265</real>
+			<integer>180</integer>
 		</dict>
-		<key>F498495A-C0C7-4322-9C6D-7DAEB6D5E99B</key>
+		<key>C41F7B92-0E3A-4D6B-8F25-9A7E1D3C5B64</key>
 		<dict>
 			<key>xpos</key>
-			<real>345</real>
+			<integer>40</integer>
 			<key>ypos</key>
-			<real>125</real>
+			<integer>320</integer>
+		</dict>
+		<key>D7A93C15-6E2B-4F8A-B04C-1E5F9A2D8C37</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>460</integer>
+		</dict>
+		<key>E5A1C9D3-2B47-4F8E-9A06-3C7D1E5B8F24</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>40</integer>
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
-	<array/>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>nq</string>
+				<key>placeholder</key>
+				<string>nq</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Opens the Network Quality window.</string>
+			<key>label</key>
+			<string>Window keyword</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>window_keyword</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>nqh</string>
+				<key>placeholder</key>
+				<string>nqh</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Lists recent results in Alfred. Type a network name to filter.</string>
+			<key>label</key>
+			<string>History keyword</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>history_keyword</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<false/>
+				<key>required</key>
+				<false/>
+				<key>text</key>
+				<string>Start a test when the window opens</string>
+			</dict>
+			<key>description</key>
+			<string>When the window opens and no test is already running, start one immediately.</string>
+			<key>label</key>
+			<string>Auto-start</string>
+			<key>type</key>
+			<string>checkbox</string>
+			<key>variable</key>
+			<string>autostart</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>parallel</string>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>Upload + download together (default)</string>
+						<string>parallel</string>
+					</array>
+					<array>
+						<string>Upload, then download (sequential)</string>
+						<string>sequential</string>
+					</array>
+					<array>
+						<string>Download only</string>
+						<string>download</string>
+					</array>
+					<array>
+						<string>Upload only</string>
+						<string>upload</string>
+					</array>
+				</array>
+			</dict>
+			<key>description</key>
+			<string></string>
+			<key>label</key>
+			<string>Test mode</string>
+			<key>type</key>
+			<string>popupbutton</string>
+			<key>variable</key>
+			<string>test_mode</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>25,100</string>
+				<key>placeholder</key>
+				<string>25,100</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Poor below the first number, Great from the second. Defaults: US FCC broadband benchmarks.</string>
+			<key>label</key>
+			<string>Download grade (Mbps)</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>thr_download</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>3,20</string>
+				<key>placeholder</key>
+				<string>3,20</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Poor below the first number, Great from the second.</string>
+			<key>label</key>
+			<string>Upload grade (Mbps)</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>thr_upload</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>200,1000</string>
+				<key>placeholder</key>
+				<string>200,1000</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Poor below the first number, Great from the second. Defaults match Apple's Low/Medium/High.</string>
+			<key>label</key>
+			<string>Responsiveness grade (RPM)</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>thr_rpm</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>30,100</string>
+				<key>placeholder</key>
+				<string>30,100</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Great below the first number, Poor above the second.</string>
+			<key>label</key>
+			<string>Latency grade (ms)</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>thr_latency</string>
+		</dict>
+	</array>
 	<key>webaddress</key>
 	<string></string>
 </dict>
