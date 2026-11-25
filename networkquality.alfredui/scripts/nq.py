@@ -33,9 +33,14 @@ RESULT = os.path.join(DATA, "result.json")
 ERROR = os.path.join(DATA, "error.json")
 HISTORY = os.path.join(DATA, "history.jsonl")
 HEARTBEAT = os.path.join(DATA, "ui.heartbeat")
+FRAME = os.path.join(DATA, "frame.json")
+DIALS = os.path.join(os.environ.get("alfred_workflow_cache") or os.path.expanduser(
+    "~/Library/Caches/com.runningwithcrayons.Alfred/Workflow Data/" + BUNDLE), "dials")
 
 MAX_SECONDS = 20
-PULSE = {"src": "scripts/nq.py", "args": ["pulse", "{var:net_filter}"], "interval": 0.25, "intervalmode": "regular"}
+PULSE = {"src": "scripts/pulse.sh", "args": ["{var:net_filter}"], "interval": 0.1, "intervalmode": "regular"}
+FPS = 10      # Alfred's pulse can't fire faster than every 0.1 s
+EASE = 0.3    # fraction of the remaining distance covered per frame
 PULSE_OFF = {"interval": 0}
 MODES = {"parallel": [], "sequential": ["-s"], "download": ["-u"], "upload": ["-d"]}
 LIVE_RE = re.compile(r"Downlink: ([\d.]+) Mbps, (\d+) RPM - Uplink: ([\d.]+) Mbps, (\d+) RPM")
@@ -77,6 +82,66 @@ def ring_fill(kind, v):
         return 0.0
     top = 3000 if kind == "rpm" else 1000
     return max(0.03, min(1.0, math.log10(v) / math.log10(top)))
+
+
+# Apple HIG system colours (dark, light): exactly what watchOS tints complication gauges with
+HIG = {GREEN: ("#30D158", "#34C759"), YELLOW: ("#FF9F0A", "#FF9500"), RED: ("#FF453A", "#FF3B30")}
+
+
+def dark_mode():
+    if "NQ_DARK" not in os.environ:
+        os.environ["NQ_DARK"] = "1" if "Dark" in sh("/usr/bin/defaults", "read", "-g", "AppleInterfaceStyle") else "0"
+    return os.environ["NQ_DARK"] == "1"
+
+
+def shade(hex_colour, k):
+    return "#" + "".join(f"{int(int(hex_colour[i:i + 2], 16) * k):02X}" for i in (1, 3, 5))
+
+
+def arc(a0, a1, r=52, c=60):
+    p = lambda a: (c + r * math.cos(math.radians(a)), c + r * math.sin(math.radians(a)))
+    (x0, y0), (x1, y1) = p(a0), p(a1)
+    return f"M{x0:.2f},{y0:.2f} A{r},{r} 0 {1 if a1 - a0 > 180 else 0} 1 {x1:.2f},{y1:.2f}"
+
+
+_written = {}
+
+
+def dial(kind, fraction, colour):
+    """Write a Watch-style 270° gauge (open at the bottom, cropped just below the arc ends) and return its path.
+
+    Each frame gets a new file name so Alfred reloads the image; older frames are pruned."""
+    os.makedirs(DIALS, exist_ok=True)
+    dark = dark_mode()
+    track = 'stroke="#808080" stroke-opacity="0.24"' if dark else 'stroke="#000000" stroke-opacity="0.09"'
+    svg = ('<svg xmlns="http://www.w3.org/2000/svg" width="232" height="201" viewBox="0 0 120 104">'
+           f'<path d="{arc(135, 405)}" fill="none" {track} stroke-width="10" stroke-linecap="round"/>')
+    if fraction > 0.004 and colour in HIG:
+        tip = HIG[colour][0 if dark else 1]
+        svg += ('<defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="14" y1="96" x2="106" y2="96">'
+                f'<stop offset="0" stop-color="{shade(tip, 0.72)}"/><stop offset="1" stop-color="{tip}"/>'
+                '</linearGradient></defs>'
+                f'<path d="{arc(135, 135 + 270 * fraction)}" fill="none" stroke="url(#g)" stroke-width="10" stroke-linecap="round"/>')
+    path = os.path.join(DIALS, f"{kind}-{time.time_ns()}.svg")
+    with open(path, "w") as f:
+        f.write(svg + "</svg>")
+    old = _written.setdefault(kind, [])
+    old.append(path)
+    while len(old) > 4:
+        remove(old.pop(0))
+    return path
+
+
+def prune_dials():
+    """Drop frames left behind by earlier processes (keeps the newest few per dial)."""
+    try:
+        files = sorted(os.listdir(DIALS))
+    except OSError:
+        return
+    for kind in ("dl", "ul", "rpm"):
+        mine = [f for f in files if f.startswith(kind + "-")]
+        for f in mine[:-4]:
+            remove(os.path.join(DIALS, f))
 
 
 def error_tag(message):
@@ -251,9 +316,10 @@ def cmd_run():
     master, slave = pty.openpty()
     proc = subprocess.Popen(args, stdout=slave, stderr=slave, stdin=subprocess.DEVNULL, close_fds=True)
     os.close(slave)
-    buf, last_write = "", 0.0
+    buf, last_write, last_frame = "", 0.0, 0.0
+    target, shown = {}, {}
     while True:
-        r, _, _ = select.select([master], [], [], 0.5)
+        r, _, _ = select.select([master], [], [], 1 / FPS / 2)
         if r:
             try:
                 chunk = os.read(master, 4096)
@@ -267,8 +333,15 @@ def cmd_run():
             for m in LIVE_RE.finditer(buf):
                 pass
             if m:
-                write_json(LIVE, {"dl": float(m.group(1)), "ul": float(m.group(3)), "rpm": int(m.group(2))})
+                target = {"dl": float(m.group(1)), "ul": float(m.group(3)), "rpm": float(m.group(2))}
+                write_json(LIVE, target)
                 last_write = time.time()
+        if target and time.time() - last_frame >= 1 / FPS:
+            # Ease the shown values toward the latest reading; the pulse script just cats this frame.
+            for k, v in target.items():
+                shown[k] = v if k not in shown else shown[k] + (v - shown[k]) * EASE
+            write_json(FRAME, {"update": {"ids": rings(shown["dl"], shown["ul"], shown["rpm"], live=True)}})
+            last_frame = time.time()
         if proc.poll() is not None and not r:
             break
     proc.wait()
@@ -300,7 +373,8 @@ def cmd_run():
         ui_open = False
     if not ui_open:
         notify(message)
-    remove(LOCK, LIVE)
+    remove(LOCK, LIVE, FRAME)
+    prune_dials()
 
 
 def notify(text):
@@ -330,7 +404,8 @@ def kill_runner():
             os.killpg(lock["pid"], signal.SIGTERM)
         except OSError:
             pass
-    remove(LOCK, LIVE)
+    remove(LOCK, LIVE, FRAME)
+    prune_dials()
 
 
 # ---------------------------------------------------------------- UI rendering
@@ -339,7 +414,7 @@ def rings(dl, ul, rpm, live=False):
     ids = {}
     for kind, v in (("dl", dl), ("ul", ul), ("rpm", rpm)):
         g, colour = grade(kind, v)
-        ids[f"r_{kind}_ring"] = {"progress": ring_fill(kind, v), "colour": colour}
+        ids[f"r_{kind}_ring"] = {"image": {"type": "file", "src": dial(kind, ring_fill(kind, v), colour)}}
         ids[f"r_{kind}_value"] = {"text": fmt_num(v)}
         ids[f"r_{kind}_grade"] = {"text": " " if live else g or " ", "colour": colour}
     return ids
@@ -443,6 +518,7 @@ def render(key=None, status=None):
 
 
 def emit(obj):
+    prune_dials()
     print(json.dumps(obj))
 
 

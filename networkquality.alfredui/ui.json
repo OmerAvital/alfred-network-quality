@@ -40,9 +40,8 @@
     "net_filter": "*"
   },
   "pulse": {
-    "src": "scripts/nq.py",
+    "src": "scripts/pulse.sh",
     "args": [
-      "pulse",
       "{var:net_filter}"
     ],
     "interval": 0
@@ -217,18 +216,14 @@
                     "position": "centre",
                     "size": {
                       "width": 116,
-                      "height": 116
+                      "height": 101
                     }
                   },
                   "components": [
                     {
                       "id": "r_dl_ring",
-                      "type": "progress",
-                      "style": "round",
-                      "thickness": 11,
-                      "progress": 0,
-                      "colour": "secondaryLabelColor",
-                      "background": "#8080802E"
+                      "type": "imageview",
+                      "resize": "fit"
                     },
                     {
                       "type": "view",
@@ -236,7 +231,10 @@
                       "direction": "vertical",
                       "spacing": 0,
                       "constraints": {
-                        "position": "centre"
+                        "position": "centre",
+                        "insets": {
+                          "top": 16
+                        }
                       },
                       "components": [
                         {
@@ -311,18 +309,14 @@
                     "position": "centre",
                     "size": {
                       "width": 116,
-                      "height": 116
+                      "height": 101
                     }
                   },
                   "components": [
                     {
                       "id": "r_ul_ring",
-                      "type": "progress",
-                      "style": "round",
-                      "thickness": 11,
-                      "progress": 0,
-                      "colour": "secondaryLabelColor",
-                      "background": "#8080802E"
+                      "type": "imageview",
+                      "resize": "fit"
                     },
                     {
                       "type": "view",
@@ -330,7 +324,10 @@
                       "direction": "vertical",
                       "spacing": 0,
                       "constraints": {
-                        "position": "centre"
+                        "position": "centre",
+                        "insets": {
+                          "top": 16
+                        }
                       },
                       "components": [
                         {
@@ -405,18 +402,14 @@
                     "position": "centre",
                     "size": {
                       "width": 116,
-                      "height": 116
+                      "height": 101
                     }
                   },
                   "components": [
                     {
                       "id": "r_rpm_ring",
-                      "type": "progress",
-                      "style": "round",
-                      "thickness": 11,
-                      "progress": 0,
-                      "colour": "secondaryLabelColor",
-                      "background": "#8080802E"
+                      "type": "imageview",
+                      "resize": "fit"
                     },
                     {
                       "type": "view",
@@ -424,7 +417,10 @@
                       "direction": "vertical",
                       "spacing": 0,
                       "constraints": {
-                        "position": "centre"
+                        "position": "centre",
+                        "insets": {
+                          "top": 16
+                        }
                       },
                       "components": [
                         {
