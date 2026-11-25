@@ -68,7 +68,7 @@ def grade(kind, v):
     lo, hi = {
         "dl": thresholds("download", (25, 100)),
         "ul": thresholds("upload", (3, 20)),
-        "rpm": thresholds("rpm", (200, 1000)),
+        "rpm": thresholds("rpm", (300, 1000)),
         "idle": thresholds("latency", (30, 100)),
     }[kind]
     if kind == "idle":  # lower is better: great below lo, poor above hi
@@ -155,7 +155,7 @@ def uses(r):
     dl, ul, rpm, idle = r.get("dl"), r.get("ul"), r.get("rpm") or 0, r.get("idle_ms") or 999
     uses = [
         ("4K streaming", None if dl is None else dl >= 25),
-        ("HD video calls", None if ul is None else (ul >= 3 and rpm >= 200)),
+        ("HD video calls", None if ul is None else (ul >= 3 and rpm >= 300)),
         ("gaming", rpm >= 500 and idle <= 60),
         ("large uploads", None if ul is None else ul >= 20),
     ]
@@ -612,9 +612,9 @@ def cmd_help():
                  text(body, colour="secondaryLabelColor")] + list(extra)}
 
     dl, ul = thresholds("download", (25, 100)), thresholds("upload", (3, 20))
-    rpm, lat = thresholds("rpm", (200, 1000)), thresholds("latency", (30, 100))
+    rpm, lat = thresholds("rpm", (300, 1000)), thresholds("latency", (30, 100))
     tags = [("4K streaming", "download of at least 25 Mbps"),
-            ("HD video calls", "upload of at least 3 Mbps and responsiveness of at least 200 RPM"),
+            ("HD video calls", "upload of at least 3 Mbps and responsiveness of at least 300 RPM"),
             ("Gaming", "responsiveness of at least 500 RPM and latency of 60 ms or less"),
             ("Large uploads", "upload of at least 20 Mbps")]
     tag_rows = [{"type": "view", "layout": "border", "spacing": 8, "components": [
@@ -629,11 +629,12 @@ def cmd_help():
              "Apple server and pushes as much data as it can in both directions until speeds level off, "
              "usually 10–20 seconds (it stops at 20).", colour="secondaryLabelColor"),
         section("Download and upload", "How much data your connection moves per second, in megabits per second (Mbps). "
-                "The dials use a log scale up to 1,000 Mbps, like a speedometer.",
+                "The dials use a log scale up to 1,000 Mbps, like a speedometer. The defaults are the US FCC broadband "
+                "benchmarks from 2015 (25/3 Mbps) and 2024 (100/20 Mbps).",
                 scale("Mbps download", *dl), scale("Mbps upload", *ul)),
         section("Responsiveness", "How quickly the network answers while it is busy, in round-trips per minute (RPM). "
                 "Low responsiveness is what makes calls stutter and games lag when someone else is streaming, "
-                "even on a fast connection. The defaults match Apple's Low / Medium / High.", scale("RPM", *rpm)),
+                "even on a fast connection. The defaults follow the IETF responsiveness draft that networkQuality implements, where about 300 RPM is poor and 1,000 fair.", scale("RPM", *rpm)),
         section("Latency", "Round-trip time to the server while the network is idle, in milliseconds. Lower is better.",
                 scale("ms", *lat, lower_better=True)),
         {"type": "view", "layout": "inline", "direction": "vertical", "spacing": 4, "components":

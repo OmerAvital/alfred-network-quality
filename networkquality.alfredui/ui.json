@@ -28,7 +28,7 @@
     "thr_rpm": {
       "src": "variable",
       "scriptenv": true,
-      "default": "200,1000"
+      "default": "300,1000"
     },
     "thr_latency": {
       "src": "variable",

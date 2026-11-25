@@ -25,9 +25,9 @@ In Alfred → Workflows → Network Quality → Configure Workflow:
 
   | Measure | Default | Source |
   |---|---|---|
-  | Download | 25 / 100 Mbps | FCC broadband benchmark |
-  | Upload | 3 / 20 Mbps | FCC broadband benchmark |
-  | Responsiveness | 200 / 1000 RPM | Apple's networkQuality bands |
+  | Download | 25 / 100 Mbps | FCC broadband benchmarks, 2015 and 2024 |
+  | Upload | 3 / 20 Mbps | FCC broadband benchmarks, 2015 and 2024 |
+  | Responsiveness | 300 / 1000 RPM | IETF responsiveness draft (poor / fair) |
   | Latency | 30 / 100 ms | lower is better |
 
 ## How it works

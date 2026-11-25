@@ -404,7 +404,7 @@ Grades (Poor/Okay/Great) use the thresholds in Configure Workflow.</string>
 				<true/>
 			</dict>
 			<key>description</key>
-			<string>Poor below the first number, Great from the second. Defaults: US FCC broadband benchmarks.</string>
+			<string>Poor below the first number, Great from the second. Defaults: US FCC broadband benchmarks from 2015 (25 Mbps) and 2024 (100 Mbps).</string>
 			<key>label</key>
 			<string>Download grade (Mbps)</string>
 			<key>type</key>
@@ -425,7 +425,7 @@ Grades (Poor/Okay/Great) use the thresholds in Configure Workflow.</string>
 				<true/>
 			</dict>
 			<key>description</key>
-			<string>Poor below the first number, Great from the second.</string>
+			<string>Poor below the first number, Great from the second. Defaults: US FCC broadband benchmarks from 2015 (3 Mbps) and 2024 (20 Mbps).</string>
 			<key>label</key>
 			<string>Upload grade (Mbps)</string>
 			<key>type</key>
@@ -437,16 +437,16 @@ Grades (Poor/Okay/Great) use the thresholds in Configure Workflow.</string>
 			<key>config</key>
 			<dict>
 				<key>default</key>
-				<string>200,1000</string>
+				<string>300,1000</string>
 				<key>placeholder</key>
-				<string>200,1000</string>
+				<string>300,1000</string>
 				<key>required</key>
 				<true/>
 				<key>trim</key>
 				<true/>
 			</dict>
 			<key>description</key>
-			<string>Poor below the first number, Great from the second. Defaults match Apple's Low/Medium/High.</string>
+			<string>Poor below the first number, Great from the second. Defaults follow the IETF responsiveness draft that networkQuality implements (about 300 RPM is poor, 1000 fair).</string>
 			<key>label</key>
 			<string>Responsiveness grade (RPM)</string>
 			<key>type</key>
