@@ -15,25 +15,45 @@
       "scriptenv": true,
       "default": "parallel"
     },
-    "thr_download": {
+    "thr_download_poor": {
       "src": "variable",
       "scriptenv": true,
-      "default": "25,100"
+      "default": "25"
     },
-    "thr_upload": {
+    "thr_download_great": {
       "src": "variable",
       "scriptenv": true,
-      "default": "3,20"
+      "default": "100"
     },
-    "thr_rpm": {
+    "thr_upload_poor": {
       "src": "variable",
       "scriptenv": true,
-      "default": "300,1000"
+      "default": "3"
     },
-    "thr_latency": {
+    "thr_upload_great": {
       "src": "variable",
       "scriptenv": true,
-      "default": "30,100"
+      "default": "20"
+    },
+    "thr_rpm_poor": {
+      "src": "variable",
+      "scriptenv": true,
+      "default": "300"
+    },
+    "thr_rpm_great": {
+      "src": "variable",
+      "scriptenv": true,
+      "default": "1000"
+    },
+    "thr_latency_great": {
+      "src": "variable",
+      "scriptenv": true,
+      "default": "30"
+    },
+    "thr_latency_poor": {
+      "src": "variable",
+      "scriptenv": true,
+      "default": "100"
     }
   },
   "variables": {
@@ -116,6 +136,11 @@
                   "font": {
                     "size": 20,
                     "weight": "semibold"
+                  },
+                  "constraints": {
+                    "size": {
+                      "width": 420
+                    }
                   }
                 },
                 {
@@ -125,6 +150,11 @@
                   "colour": "secondaryLabelColor",
                   "font": {
                     "size": "small"
+                  },
+                  "constraints": {
+                    "size": {
+                      "width": 420
+                    }
                   }
                 }
               ]
@@ -151,8 +181,8 @@
                   "text": "—",
                   "textalign": "right",
                   "constraints": {
-                    "insets": {
-                      "right": 4
+                    "size": {
+                      "width": 160
                     }
                   },
                   "font": {
@@ -187,8 +217,12 @@
                         "weight": "semibold"
                       },
                       "constraints": {
-                        "region": "right"
-                      }
+                        "region": "right",
+                        "size": {
+                          "width": 44
+                        }
+                      },
+                      "textalign": "right"
                     }
                   ]
                 }
@@ -290,7 +324,13 @@
                       "id": "r_dl_grade",
                       "font": {
                         "weight": "semibold"
-                      }
+                      },
+                      "constraints": {
+                        "size": {
+                          "width": 100
+                        }
+                      },
+                      "textalign": "centre"
                     }
                   ]
                 }
@@ -383,7 +423,13 @@
                       "id": "r_ul_grade",
                       "font": {
                         "weight": "semibold"
-                      }
+                      },
+                      "constraints": {
+                        "size": {
+                          "width": 100
+                        }
+                      },
+                      "textalign": "centre"
                     }
                   ]
                 }
@@ -476,7 +522,13 @@
                       "id": "r_rpm_grade",
                       "font": {
                         "weight": "semibold"
-                      }
+                      },
+                      "constraints": {
+                        "size": {
+                          "width": 100
+                        }
+                      },
+                      "textalign": "centre"
                     }
                   ]
                 }

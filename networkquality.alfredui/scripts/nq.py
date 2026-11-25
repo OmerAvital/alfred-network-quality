@@ -53,12 +53,16 @@ GREY = "secondaryLabelColor"
 # ---------------------------------------------------------------- grading
 
 def thresholds(name, default):
-    """'25,100' -> (25.0, 100.0) from Configure Workflow, falling back to defaults."""
-    try:
-        a, b = (float(x) for x in os.environ.get("thr_" + name, "").split(","))
-        return (a, b)
-    except ValueError:
-        return default
+    """(lo, hi) from the Configure Workflow sliders, falling back to defaults.
+    For latency lo is the Great limit and hi the Poor limit; otherwise lo is Poor and hi is Great."""
+    keys = ("great", "poor") if name == "latency" else ("poor", "great")
+    out = []
+    for key, fallback in zip(keys, default):
+        try:
+            out.append(float(os.environ["thr_%s_%s" % (name, key)]))
+        except (KeyError, ValueError):
+            out.append(float(fallback))
+    return tuple(out) if out[0] < out[1] else tuple(float(d) for d in default)
 
 
 def grade(kind, v):
@@ -76,12 +80,27 @@ def grade(kind, v):
     return ("Great", GREEN) if v >= hi else ("Okay", YELLOW) if v >= lo else ("Poor", RED)
 
 
+LIMITS = {"dl": "download", "ul": "upload", "rpm": "rpm"}
+
+
 def ring_fill(kind, v):
-    """Log scale like a speedometer dial: full at 1000 Mbps / 3000 RPM."""
-    if not v or v <= 1:
+    """Each grade owns a third of the dial (Poor, Okay, Great), log-scaled inside it,
+    so the fill always agrees with the colour."""
+    if not v or v <= 0:
         return 0.0
-    top = 3000 if kind == "rpm" else 1000
-    return max(0.03, min(1.0, math.log10(v) / math.log10(top)))
+    lo, hi = thresholds(LIMITS[kind], {"dl": (25, 100), "ul": (3, 20), "rpm": (300, 1000)}[kind])
+    top = max(3000 if kind == "rpm" else 1000, hi * 3)
+
+    def part(a, b, x):
+        return (math.log(x) - math.log(a)) / (math.log(b) - math.log(a))
+
+    if v < lo:
+        f = (v / lo if lo <= 1 else part(1, lo, max(v, 1))) / 3
+    elif v < hi:
+        f = (1 + part(lo, hi, v)) / 3
+    else:
+        f = (2 + part(hi, top, min(v, top))) / 3
+    return max(0.03, min(1.0, f))
 
 
 # Apple HIG system colours (dark, light): exactly what watchOS tints complication gauges with
@@ -629,7 +648,7 @@ def cmd_help():
              "Apple server and pushes as much data as it can in both directions until speeds level off, "
              "usually 10–20 seconds (it stops at 20).", colour="secondaryLabelColor"),
         section("Download and upload", "How much data your connection moves per second, in megabits per second (Mbps). "
-                "The dials use a log scale up to 1,000 Mbps, like a speedometer. The defaults are the US FCC broadband "
+                "Each dial is split into thirds, Poor, Okay and Great, so how full it is matches its colour. The defaults are the US FCC broadband "
                 "benchmarks from 2015 (25/3 Mbps) and 2024 (100/20 Mbps).",
                 scale("Mbps download", *dl), scale("Mbps upload", *ul)),
         section("Responsiveness", "How quickly the network answers while it is busy, in round-trips per minute (RPM). "

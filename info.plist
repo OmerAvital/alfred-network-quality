@@ -10,9 +10,9 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>8E2D4A61-3B7C-4F09-A1D5-6C9E2B47F8A3</string>
+				<string>5B3C1E2A-7D4F-4C8B-9E61-2A0F3D9C7B10</string>
 				<key>modifiers</key>
-				<integer>0</integer>
+				<integer>1048576</integer>
 				<key>modifiersubtext</key>
 				<string></string>
 				<key>vitoclose</key>
@@ -20,9 +20,9 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
-				<string>5B3C1E2A-7D4F-4C8B-9E61-2A0F3D9C7B10</string>
+				<string>8E2D4A61-3B7C-4F09-A1D5-6C9E2B47F8A3</string>
 				<key>modifiers</key>
-				<integer>1048576</integer>
+				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
 				<key>vitoclose</key>
@@ -82,6 +82,63 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>{var:window_keyword}</string>
+				<key>subtext</key>
+				<string>Run a speed test with live results</string>
+				<key>text</key>
+				<string>Network Quality</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>E5A1C9D3-2B47-4F8E-9A06-3C7D1E5B8F24</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>launchmode</key>
+				<integer>0</integer>
+				<key>path</key>
+				<string>networkquality.alfredui</string>
+				<key>stackview</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.userinterface.alfredui</string>
+			<key>uid</key>
+			<string>5B3C1E2A-7D4F-4C8B-9E61-2A0F3D9C7B10</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>8E2D4A61-3B7C-4F09-A1D5-6C9E2B47F8A3</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>alfredfiltersresults</key>
 				<true/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -125,42 +182,6 @@
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>AF10E3F7-6161-4417-B143-6C4FD80362F6</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>launchmode</key>
-				<integer>0</integer>
-				<key>path</key>
-				<string>networkquality.alfredui</string>
-				<key>stackview</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.userinterface.alfredui</string>
-			<key>uid</key>
-			<string>5B3C1E2A-7D4F-4C8B-9E61-2A0F3D9C7B10</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>autopaste</key>
-				<false/>
-				<key>clipboardtext</key>
-				<string>{query}</string>
-				<key>ignoredynamicplaceholders</key>
-				<false/>
-				<key>transient</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
-			<key>uid</key>
-			<string>8E2D4A61-3B7C-4F09-A1D5-6C9E2B47F8A3</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
@@ -215,83 +236,94 @@
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>{var:window_keyword}</string>
-				<key>subtext</key>
-				<string>Run a speed test with live results</string>
-				<key>text</key>
-				<string>Network Quality</string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>E5A1C9D3-2B47-4F8E-9A06-3C7D1E5B8F24</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
 	</array>
 	<key>readme</key>
-	<string>nq: opens the window. ↩ runs or stops a test, ⌘C copies the result, the dropdown filters history by network.
-nqh: recent results in Alfred (type a network name to filter). ↩ copies, ⌘↩ opens the window.
-Closing the window mid-test lets it finish; the result is saved and shown as a notification.
-Grades (Poor/Okay/Great) use the thresholds in Configure Workflow.</string>
+	<string>Test your connection with macOS's built-in `networkQuality`. Watch the results come in live, see whether they're good enough for calls, streaming and gaming, and compare each network with itself over time.
+
+[Project page and updates](https://github.com/OmerAvital/alfred-network-quality)
+
+## Usage
+
+Open the window with the `nq` keyword. Press `↩` to run a test.
+
+![Network Quality window with download, upload and responsiveness dials, tags and history](images/about/window.png)
+
+- `↩` runs a test, or stops one that's running.
+- `⌘C` copies the result.
+- `⌘/` or the **?** button explains each number and the current thresholds.
+- The dropdown filters the history by network. Results over a VPN are kept separate.
+- Close the window mid-test and the test still finishes. You get a notification with the result.
+
+Each result is graded **Poor**, **Okay** or **Great**, and the tags show what the connection is good enough for.
+
+![Help sheet explaining download, upload, responsiveness, latency and tags](images/about/help.png)
+
+Browse past results right in Alfred with the `nqh` keyword. Type a network name to filter.
+
+![Alfred showing recent results for the nqh keyword](images/about/history.png)
+
+- `↩` copies a result.
+- `⌘↩` opens the window.
+
+## Configuration
+
+In Alfred → Workflows → Network Quality → **Configure Workflow**:
+
+- **Keywords** for the window and the history.
+- **Auto-start** runs a test as soon as the window opens.
+- **Test mode**: parallel (default), sequential, download only or upload only.
+- **Grade thresholds** for each measure, as sliders. Download and upload default to the FCC's 2015 and 2024 broadband benchmarks. Responsiveness defaults to the bands in the IETF responsiveness draft that `networkQuality` implements.
+</string>
 	<key>uidata</key>
 	<dict>
 		<key>0F6B2E84-9C1D-4A37-8E5B-7D2C4F1A6B93</key>
 		<dict>
 			<key>xpos</key>
-			<integer>300</integer>
+			<real>300.0</real>
 			<key>ypos</key>
-			<integer>460</integer>
+			<real>460.0</real>
 		</dict>
 		<key>5B3C1E2A-7D4F-4C8B-9E61-2A0F3D9C7B10</key>
 		<dict>
 			<key>xpos</key>
-			<integer>300</integer>
+			<real>300.0</real>
 			<key>ypos</key>
-			<integer>40</integer>
+			<real>40.0</real>
 		</dict>
 		<key>8E2D4A61-3B7C-4F09-A1D5-6C9E2B47F8A3</key>
 		<dict>
 			<key>xpos</key>
-			<integer>300</integer>
+			<real>300.0</real>
 			<key>ypos</key>
-			<integer>180</integer>
+			<real>180.0</real>
 		</dict>
 		<key>AF10E3F7-6161-4417-B143-6C4FD80362F6</key>
 		<dict>
 			<key>xpos</key>
-			<integer>40</integer>
+			<real>40.0</real>
 			<key>ypos</key>
-			<integer>180</integer>
+			<real>180.0</real>
 		</dict>
 		<key>C41F7B92-0E3A-4D6B-8F25-9A7E1D3C5B64</key>
 		<dict>
 			<key>xpos</key>
-			<integer>40</integer>
+			<real>40.0</real>
 			<key>ypos</key>
-			<integer>320</integer>
+			<real>320.0</real>
 		</dict>
 		<key>D7A93C15-6E2B-4F8A-B04C-1E5F9A2D8C37</key>
 		<dict>
 			<key>xpos</key>
-			<integer>40</integer>
+			<real>40.0</real>
 			<key>ypos</key>
-			<integer>460</integer>
+			<real>460.0</real>
 		</dict>
 		<key>E5A1C9D3-2B47-4F8E-9A06-3C7D1E5B8F24</key>
 		<dict>
 			<key>xpos</key>
-			<integer>40</integer>
+			<real>40.0</real>
 			<key>ypos</key>
-			<integer>40</integer>
+			<real>40.0</real>
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
@@ -394,86 +426,202 @@ Grades (Poor/Okay/Great) use the thresholds in Configure Workflow.</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>default</key>
-				<string>25,100</string>
-				<key>placeholder</key>
-				<string>25,100</string>
-				<key>required</key>
+				<key>defaultvalue</key>
+				<integer>25</integer>
+				<key>markercount</key>
+				<integer>20</integer>
+				<key>maxvalue</key>
+				<integer>100</integer>
+				<key>minvalue</key>
+				<integer>5</integer>
+				<key>onlystoponmarkers</key>
 				<true/>
-				<key>trim</key>
-				<true/>
+				<key>showmarkers</key>
+				<false/>
 			</dict>
 			<key>description</key>
-			<string>Poor below the first number, Great from the second. Defaults: US FCC broadband benchmarks from 2015 (25 Mbps) and 2024 (100 Mbps).</string>
+			<string>Poor below this many Mbps. Default 25, the FCC's 2015 broadband benchmark.</string>
 			<key>label</key>
-			<string>Download grade (Mbps)</string>
+			<string>Download</string>
 			<key>type</key>
-			<string>textfield</string>
+			<string>slider</string>
 			<key>variable</key>
-			<string>thr_download</string>
+			<string>thr_download_poor</string>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>default</key>
-				<string>3,20</string>
-				<key>placeholder</key>
-				<string>3,20</string>
-				<key>required</key>
+				<key>defaultvalue</key>
+				<integer>100</integer>
+				<key>markercount</key>
+				<integer>20</integer>
+				<key>maxvalue</key>
+				<integer>1000</integer>
+				<key>minvalue</key>
+				<integer>50</integer>
+				<key>onlystoponmarkers</key>
 				<true/>
-				<key>trim</key>
-				<true/>
+				<key>showmarkers</key>
+				<false/>
 			</dict>
 			<key>description</key>
-			<string>Poor below the first number, Great from the second. Defaults: US FCC broadband benchmarks from 2015 (3 Mbps) and 2024 (20 Mbps).</string>
+			<string>Great from this many Mbps. Default 100, the FCC's 2024 benchmark.</string>
 			<key>label</key>
-			<string>Upload grade (Mbps)</string>
+			<string></string>
 			<key>type</key>
-			<string>textfield</string>
+			<string>slider</string>
 			<key>variable</key>
-			<string>thr_upload</string>
+			<string>thr_download_great</string>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>default</key>
-				<string>300,1000</string>
-				<key>placeholder</key>
-				<string>300,1000</string>
-				<key>required</key>
+				<key>defaultvalue</key>
+				<integer>3</integer>
+				<key>markercount</key>
+				<integer>20</integer>
+				<key>maxvalue</key>
+				<integer>20</integer>
+				<key>minvalue</key>
+				<integer>1</integer>
+				<key>onlystoponmarkers</key>
 				<true/>
-				<key>trim</key>
-				<true/>
+				<key>showmarkers</key>
+				<false/>
 			</dict>
 			<key>description</key>
-			<string>Poor below the first number, Great from the second. Defaults follow the IETF responsiveness draft that networkQuality implements (about 300 RPM is poor, 1000 fair).</string>
+			<string>Poor below this many Mbps. Default 3, the FCC's 2015 benchmark.</string>
 			<key>label</key>
-			<string>Responsiveness grade (RPM)</string>
+			<string>Upload</string>
 			<key>type</key>
-			<string>textfield</string>
+			<string>slider</string>
 			<key>variable</key>
-			<string>thr_rpm</string>
+			<string>thr_upload_poor</string>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>default</key>
-				<string>30,100</string>
-				<key>placeholder</key>
-				<string>30,100</string>
-				<key>required</key>
+				<key>defaultvalue</key>
+				<integer>20</integer>
+				<key>markercount</key>
+				<integer>20</integer>
+				<key>maxvalue</key>
+				<integer>100</integer>
+				<key>minvalue</key>
+				<integer>5</integer>
+				<key>onlystoponmarkers</key>
 				<true/>
-				<key>trim</key>
-				<true/>
+				<key>showmarkers</key>
+				<false/>
 			</dict>
 			<key>description</key>
-			<string>Great below the first number, Poor above the second.</string>
+			<string>Great from this many Mbps. Default 20, the FCC's 2024 benchmark.</string>
 			<key>label</key>
-			<string>Latency grade (ms)</string>
+			<string></string>
 			<key>type</key>
-			<string>textfield</string>
+			<string>slider</string>
 			<key>variable</key>
-			<string>thr_latency</string>
+			<string>thr_upload_great</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>defaultvalue</key>
+				<integer>300</integer>
+				<key>markercount</key>
+				<integer>19</integer>
+				<key>maxvalue</key>
+				<integer>1000</integer>
+				<key>minvalue</key>
+				<integer>100</integer>
+				<key>onlystoponmarkers</key>
+				<true/>
+				<key>showmarkers</key>
+				<false/>
+			</dict>
+			<key>description</key>
+			<string>Poor below this many RPM. Default 300, 'poor' in the IETF responsiveness draft.</string>
+			<key>label</key>
+			<string>Responsiveness</string>
+			<key>type</key>
+			<string>slider</string>
+			<key>variable</key>
+			<string>thr_rpm_poor</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>defaultvalue</key>
+				<integer>1000</integer>
+				<key>markercount</key>
+				<integer>11</integer>
+				<key>maxvalue</key>
+				<integer>3000</integer>
+				<key>minvalue</key>
+				<integer>500</integer>
+				<key>onlystoponmarkers</key>
+				<true/>
+				<key>showmarkers</key>
+				<false/>
+			</dict>
+			<key>description</key>
+			<string>Great from this many RPM. Default 1000, 'fair' in the IETF draft.</string>
+			<key>label</key>
+			<string></string>
+			<key>type</key>
+			<string>slider</string>
+			<key>variable</key>
+			<string>thr_rpm_great</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>defaultvalue</key>
+				<integer>30</integer>
+				<key>markercount</key>
+				<integer>19</integer>
+				<key>maxvalue</key>
+				<integer>100</integer>
+				<key>minvalue</key>
+				<integer>10</integer>
+				<key>onlystoponmarkers</key>
+				<true/>
+				<key>showmarkers</key>
+				<false/>
+			</dict>
+			<key>description</key>
+			<string>Great below this many milliseconds, measured while the network is idle. Default 30.</string>
+			<key>label</key>
+			<string>Latency</string>
+			<key>type</key>
+			<string>slider</string>
+			<key>variable</key>
+			<string>thr_latency_great</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>defaultvalue</key>
+				<integer>100</integer>
+				<key>markercount</key>
+				<integer>11</integer>
+				<key>maxvalue</key>
+				<integer>300</integer>
+				<key>minvalue</key>
+				<integer>50</integer>
+				<key>onlystoponmarkers</key>
+				<true/>
+				<key>showmarkers</key>
+				<false/>
+			</dict>
+			<key>description</key>
+			<string>Poor above this many milliseconds. Default 100.</string>
+			<key>label</key>
+			<string></string>
+			<key>type</key>
+			<string>slider</string>
+			<key>variable</key>
+			<string>thr_latency_poor</string>
 		</dict>
 	</array>
 	<key>webaddress</key>

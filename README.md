@@ -1,35 +1,39 @@
-# Network Quality for Alfred 6
+# <img src="icon.png" width="45" align="center" alt=""> Network Quality
 
-An Alfred UI window for macOS's built-in `networkQuality` speed test. It shows Watch-style dials that update live, a latency readout, "good for" tags (4K streaming, video calls, gaming, large uploads) and a history you can filter by network.
+Test your connection with macOS's built-in `networkQuality`. Watch the results come in live, see at a glance whether they're good enough for calls, streaming and gaming, and compare each network with itself over time.
 
-<!-- Screenshot: add one here -->
+[⤓ Download the latest release](https://github.com/OmerAvital/alfred-network-quality/releases/latest)
 
-## Install
+Requires Alfred 6 with the Powerpack, on a Mac that has `networkQuality` (macOS Monterey or later).
 
-Download `Network.Quality.alfredworkflow` from [Releases](../../releases) and double-click it. You need Alfred 6 with the Powerpack, and a recent macOS. It has only been tested on the current release.
+## Usage
 
-## Use
+Open the window with the `nq` keyword. Press <kbd>↩</kbd> to run a test.
 
-- **`nq`** opens the window. ↩ runs or stops a test, ⌘C copies the result, ⌘/ opens the help sheet, and the dropdown filters history by network.
-- **`nqh`** lists recent results in Alfred. Type a network name to filter. ↩ copies a result, ⌘↩ opens the window.
-- If you close the window mid-test, the test still finishes, saves the result and posts a notification.
+![Network Quality window with download, upload and responsiveness dials, tags and history](images/about/window.png)
 
-## Configure
+- <kbd>↩</kbd> runs a test, or stops one that's running.
+- <kbd>⌘</kbd><kbd>C</kbd> copies the result.
+- <kbd>⌘</kbd><kbd>/</kbd> or the **?** button explains each number and the current thresholds.
+- The dropdown filters the history by network. Results over a VPN are kept separate.
+- Close the window mid-test and the test still finishes. You get a notification with the result.
 
-In Alfred → Workflows → Network Quality → Configure Workflow:
+Each result is graded **Poor**, **Okay** or **Great**, and the tags show what the connection is good enough for.
+
+![Help sheet explaining download, upload, responsiveness, latency and tags](images/about/help.png)
+
+Browse past results right in Alfred with the `nqh` keyword. Type a network name to filter.
+
+![Alfred showing recent results for the nqh keyword](images/about/history.png)
+
+- <kbd>↩</kbd> copies a result.
+- <kbd>⌘</kbd><kbd>↩</kbd> opens the window.
+
+## Configuration
+
+In Alfred → Workflows → Network Quality → **Configure Workflow**:
 
 - **Keywords** for the window and the history.
-- **Auto-start**: run a test as soon as the window opens.
+- **Auto-start** runs a test as soon as the window opens.
 - **Test mode**: parallel (default), sequential, download only or upload only.
-- **Thresholds** for the Poor / Okay / Great grades:
-
-  | Measure | Default | Source |
-  |---|---|---|
-  | Download | 25 / 100 Mbps | FCC broadband benchmarks, 2015 and 2024 |
-  | Upload | 3 / 20 Mbps | FCC broadband benchmarks, 2015 and 2024 |
-  | Responsiveness | 300 / 1000 RPM | IETF responsiveness draft (poor / fair) |
-  | Latency | 30 / 100 ms | lower is better |
-
-## How it works
-
-`scripts/nq.py` runs `networkQuality` in a pty so it can read the live progress lines. It eases the values and writes SVG dial frames, which the window picks up through Alfred UI's `pulse` at about 10 fps. Each result is saved with the network name, the router's MAC address and whether a VPN was on, so you can compare a network with itself over time.
+- **Grade thresholds** for each measure, as sliders. Download and upload default to the FCC's 2015 and 2024 broadband benchmarks. Responsiveness defaults to the bands in the IETF responsiveness draft that `networkQuality` implements.
